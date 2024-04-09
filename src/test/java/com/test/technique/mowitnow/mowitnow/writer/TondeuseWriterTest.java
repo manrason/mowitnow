@@ -13,8 +13,7 @@ import java.util.List;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-
-public class TondeuseWriterTest {
+class TondeuseWriterTest {
 
     @Mock
     private org.springframework.batch.item.ExecutionContext testExecutionContext;
@@ -26,7 +25,7 @@ public class TondeuseWriterTest {
     private TondeuseItemWriter writer;
 
     @Test
-    public void testWrite() {
+    void testWrite() {
         List<TondeuseOutput> outputs = new ArrayList<>();
         outputs.add(new TondeuseOutput(1, 2, 'N'));
         outputs.add(new TondeuseOutput(3, 4, 'E'));

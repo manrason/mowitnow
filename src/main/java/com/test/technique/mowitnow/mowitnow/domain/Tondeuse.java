@@ -18,6 +18,7 @@ public class Tondeuse {
             case 'E' -> x++;
             case 'S' -> y--;
             case 'W' -> x--;
+            default -> throw new IllegalStateException("Unexpected value: " + orientation);
         }
     }
 
@@ -27,6 +28,7 @@ public class Tondeuse {
             case 'E' -> orientation = 'S';
             case 'S' -> orientation = 'W';
             case 'W' -> orientation = 'N';
+            default -> throw new IllegalStateException("Unexpected value: " + orientation);
         }
     }
 
@@ -36,6 +38,7 @@ public class Tondeuse {
             case 'E' -> orientation = 'N';
             case 'S' -> orientation = 'E';
             case 'W' -> orientation = 'S';
+            default -> throw new IllegalStateException("Unexpected value: " + orientation);
         }
     }
 
