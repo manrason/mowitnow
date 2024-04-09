@@ -17,16 +17,17 @@ public class TondeuseItemProcessor implements ItemProcessor<TondeuseInput, Tonde
                 case 'A' -> tondeuse.avancer();
                 case 'D' -> tondeuse.tournerDroite();
                 case 'G' -> tondeuse.tournerGauche();
+                default -> throw new IllegalStateException("Unexpected value: " + instruction);
             }
-            if (!pelouse.isInBounds(tondeuse.x, tondeuse.y)) {
+            if (!pelouse.isInBounds(tondeuse.getX(), tondeuse.getY())) {
                 break;
             }
         }
 
         TondeuseOutput output = new TondeuseOutput();
-        output.setX(tondeuse.x);
-        output.setY(tondeuse.y);
-        output.setOrientation(tondeuse.orientation);
+        output.setX(tondeuse.getX());
+        output.setY(tondeuse.getY());
+        output.setOrientation(tondeuse.getOrientation());
 
         return output;
     }

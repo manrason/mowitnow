@@ -7,11 +7,13 @@ import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
 
 public class TondeuseItemReader extends FlatFileItemReader<String[]> {
 
     public FlatFileItemReader<TondeuseInput> tondeuseItemReader() {
         FlatFileItemReader<TondeuseInput> reader = new FlatFileItemReader<>();
+        reader.setResource(new ClassPathResource("src/resources/mowitnow.txt"));
         reader.setLineMapper(lineMapper());
         reader.setLinesToSkip(1);
         return reader;
