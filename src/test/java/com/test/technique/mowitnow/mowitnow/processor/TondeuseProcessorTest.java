@@ -38,7 +38,7 @@ public class TondeuseProcessorTest {
     }
 
     @Test
-    public void testProcessOutOfBounds() throws Exception {
+    public void testProcessOutOfBounds() {
         when(pelouse.isInBounds(1, 4)).thenReturn(true);
         when(pelouse.isInBounds(1, 5)).thenReturn(false);
         TondeuseInput input = new TondeuseInput();
@@ -55,7 +55,7 @@ public class TondeuseProcessorTest {
     }
 
     @Test
-    public void testProcessWithMultipleInstructions() throws Exception {
+    public void testProcessWithMultipleInstructions() {
         when(pelouse.isInBounds(0, 0)).thenReturn(true);
         TondeuseInput input = new TondeuseInput();
         input.setX(0);
