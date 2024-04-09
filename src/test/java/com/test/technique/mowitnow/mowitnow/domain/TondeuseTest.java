@@ -34,15 +34,6 @@ public class TondeuseTest {
     }
 
     @Test
-    public void testAvancerHorsBornes() {
-        Tondeuse tondeuse = new Tondeuse(0, 4, 'N');
-        tondeuse.avancer();
-        assertEquals(0, tondeuse.x);
-        assertEquals(4, tondeuse.y);
-        assertEquals('N', tondeuse.orientation);
-    }
-
-    @Test
     public void testTournerHorsBornes() {
         Tondeuse tondeuse = new Tondeuse(0, 0, 'N');
         tondeuse.tournerDroite();

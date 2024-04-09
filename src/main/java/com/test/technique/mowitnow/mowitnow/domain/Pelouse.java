@@ -2,8 +2,8 @@ package com.test.technique.mowitnow.mowitnow.domain;
 
 public class Pelouse {
 
-    private int largeur;
-    private int hauteur;
+    private final int largeur;
+    private final int hauteur;
 
     public Pelouse(int largeur, int hauteur) {
         this.largeur = largeur;
