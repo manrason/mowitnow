@@ -2,47 +2,67 @@ package com.test.technique.mowitnow.mowitnow.domain;
 
 public class Tondeuse {
 
-    public int x;
-    public int y;
-    public char orientation;
+    private int x;
+    private int y;
+    private char orientation;
 
     public Tondeuse(int x, int y, char orientation) {
-        this.x = x;
-        this.y = y;
-        this.orientation = orientation;
+        this.setX(x);
+        this.setY(y);
+        this.setOrientation(orientation);
     }
 
     public void avancer() {
-        switch (orientation) {
-            case 'N' -> y++;
-            case 'E' -> x++;
-            case 'S' -> y--;
-            case 'W' -> x--;
-            default -> throw new IllegalStateException("Unexpected value: " + orientation);
+        switch (getOrientation()) {
+            case 'N' -> setY(getY() + 1);
+            case 'E' -> setX(getX() + 1);
+            case 'S' -> setY(getY() - 1);
+            case 'W' -> setX(getX() - 1);
+            default -> throw new IllegalStateException("Unexpected value: " + getOrientation());
         }
     }
 
     public void tournerDroite() {
-        switch (orientation) {
-            case 'N' -> orientation = 'E';
-            case 'E' -> orientation = 'S';
-            case 'S' -> orientation = 'W';
-            case 'W' -> orientation = 'N';
-            default -> throw new IllegalStateException("Unexpected value: " + orientation);
+        switch (getOrientation()) {
+            case 'N' -> setOrientation('E');
+            case 'E' -> setOrientation('S');
+            case 'S' -> setOrientation('W');
+            case 'W' -> setOrientation('N');
+            default -> throw new IllegalStateException("Unexpected value: " + getOrientation());
         }
     }
 
     public void tournerGauche() {
-        switch (orientation) {
-            case 'N' -> orientation = 'W';
-            case 'E' -> orientation = 'N';
-            case 'S' -> orientation = 'E';
-            case 'W' -> orientation = 'S';
-            default -> throw new IllegalStateException("Unexpected value: " + orientation);
+        switch (getOrientation()) {
+            case 'N' -> setOrientation('W');
+            case 'E' -> setOrientation('N');
+            case 'S' -> setOrientation('E');
+            case 'W' -> setOrientation('S');
+            default -> throw new IllegalStateException("Unexpected value: " + getOrientation());
         }
     }
 
-    public String getPosition() {
-        return String.format("%d %d %c", x, y, orientation);
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public char getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(char orientation) {
+        this.orientation = orientation;
     }
 }
