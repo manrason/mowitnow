@@ -2,23 +2,42 @@ package com.test.technique.mowitnow.mowitnow.domain;
 
 public class Tondeuse {
 
+    private Pelouse pelouse;
+
     private int x;
     private int y;
     private char orientation;
+    private String instructions;
 
-    public Tondeuse(int x, int y, char orientation) {
-        this.setX(x);
-        this.setY(y);
-        this.setOrientation(orientation);
+
+    public Tondeuse(Pelouse pelouse, int x, int y, char orientation, String instructions) {
+        this.pelouse = pelouse;
+        this.x = x;
+        this.y = y;
+        this.orientation = orientation;
+        this.instructions = instructions;
+    }
+
+    public Tondeuse() {
     }
 
     public void avancer() {
+        int newX = this.x;
+        int newY = this.y;
         switch (getOrientation()) {
-            case 'N' -> setY(getY() + 1);
-            case 'E' -> setX(getX() + 1);
-            case 'S' -> setY(getY() - 1);
-            case 'W' -> setX(getX() - 1);
+            case 'N' -> newY++;
+            case 'E' -> newX++;
+            case 'S' -> newY--;
+            case 'W' -> newX--;
             default -> throw new IllegalStateException("Unexpected value: " + getOrientation());
+        }
+        if (newX >= 0 && newX > pelouse.getLargeur()) {
+            setX(x);
+        }else if ( newY >= 0 && newY > pelouse.getHauteur()){
+            setY(y);
+        }else {
+            setX(newX);
+            setY(newY);
         }
     }
 
@@ -64,5 +83,13 @@ public class Tondeuse {
 
     public void setOrientation(char orientation) {
         this.orientation = orientation;
+    }
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
     }
 }

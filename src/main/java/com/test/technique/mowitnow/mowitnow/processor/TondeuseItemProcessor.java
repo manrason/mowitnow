@@ -1,17 +1,15 @@
 package com.test.technique.mowitnow.mowitnow.processor;
 
-import com.test.technique.mowitnow.mowitnow.config.TondeuseInput;
-import com.test.technique.mowitnow.mowitnow.config.TondeuseOutput;
 import com.test.technique.mowitnow.mowitnow.domain.Pelouse;
 import com.test.technique.mowitnow.mowitnow.domain.Tondeuse;
 import org.springframework.batch.item.ItemProcessor;
 
-public class TondeuseItemProcessor implements ItemProcessor<TondeuseInput, TondeuseOutput> {
+public class TondeuseItemProcessor implements ItemProcessor<Tondeuse, Tondeuse> {
 
     @Override
-    public TondeuseOutput process(TondeuseInput input) {
+    public Tondeuse process(Tondeuse input) {
         Pelouse pelouse = new Pelouse(input.getX(), input.getY());
-        Tondeuse tondeuse = new Tondeuse(input.getX(), input.getY(), input.getOrientation());
+        Tondeuse tondeuse = new Tondeuse(pelouse,input.getX(), input.getY(), input.getOrientation(), input.getInstructions());
         for (char instruction : input.getInstructions().toCharArray()) {
             switch (instruction) {
                 case 'A' -> tondeuse.avancer();
@@ -24,7 +22,7 @@ public class TondeuseItemProcessor implements ItemProcessor<TondeuseInput, Tonde
             }
         }
 
-        TondeuseOutput output = new TondeuseOutput();
+        Tondeuse output = new Tondeuse();
         output.setX(tondeuse.getX());
         output.setY(tondeuse.getY());
         output.setOrientation(tondeuse.getOrientation());

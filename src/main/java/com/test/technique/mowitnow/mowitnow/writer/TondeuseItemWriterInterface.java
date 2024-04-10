@@ -1,9 +1,11 @@
 package com.test.technique.mowitnow.mowitnow.writer;
 
-import com.test.technique.mowitnow.mowitnow.config.TondeuseOutput;
+import com.test.technique.mowitnow.mowitnow.domain.Tondeuse;
 
 import java.util.List;
 
 public interface TondeuseItemWriterInterface {
-    void write(List<? extends TondeuseOutput> outputs);
+    void write(List<? extends Tondeuse> outputs);
+
+    String getOutput();
 }
