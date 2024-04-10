@@ -8,7 +8,10 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
@@ -21,25 +24,18 @@ import org.springframework.context.annotation.Configuration;
 public class MowItNowBatchConfiguration {
 
 
-    //TODO solution for deperecated method
-    @Autowired
-    private JobBuilderFactory jobBuilderFactory;
-
-    @Autowired
-    private StepBuilderFactory stepBuilderFactory;
-
 
     @Bean
-    public Job job() {
-        return jobBuilderFactory.get("tondeuseJob")
+    public Job job(JobRepository jobRepository) {
+        return new JobBuilder("tondeuseJob", jobRepository)
                 .incrementer(new RunIdIncrementer())
-                .start(mowItNowStep())
+                .start(mowItNowStep(jobRepository))
                 .build();
     }
 
     @Bean
-    public Step mowItNowStep() {
-        return stepBuilderFactory.get("mowItNowStep")
+    public Step mowItNowStep(JobRepository jobRepository) {
+        return new StepBuilder("mowItNowStep", jobRepository)
                 .<MowItNowInput, MowItNowOutput>chunk(1)
                 .reader(mowItNowReader())
                 .processor(mowItNowProcessor())

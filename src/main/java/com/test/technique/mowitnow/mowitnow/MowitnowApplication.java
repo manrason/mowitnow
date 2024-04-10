@@ -1,6 +1,7 @@
 package com.test.technique.mowitnow.mowitnow;
 
 import com.test.technique.mowitnow.mowitnow.config.MowItNowBatchConfiguration;
+import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,6 +21,6 @@ public class MowitnowApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		mowItNowBatchConfiguration.job();
+        mowItNowBatchConfiguration.job();
 	}
 }
