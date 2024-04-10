@@ -22,18 +22,14 @@ class TondeuseProcessorTest {
 
     @Test
     void testProcess() {
-        when(pelouse.isInBounds(0, 0)).thenReturn(true);
-        Tondeuse input = new Tondeuse();
-        input.setX(0);
-        input.setY(0);
-        input.setOrientation('N');
-        input.setInstructions("ADGAGAGA");
+        //when(pelouse.isInBounds(0, 2)).thenReturn(false);
+        Tondeuse input = new Tondeuse(new Pelouse(5,5),0,0,'N',"ADGAGAGA");
 
         Tondeuse output = processor.process(input);
 
         assertEquals(0, output.getX());
         assertEquals(2, output.getY());
-        assertEquals('N', output.getOrientation());
+        assertEquals('S', output.getOrientation());
     }
 
     @Test

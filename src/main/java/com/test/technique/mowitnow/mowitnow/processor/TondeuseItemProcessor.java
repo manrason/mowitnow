@@ -1,32 +1,31 @@
 package com.test.technique.mowitnow.mowitnow.processor;
 
-import com.test.technique.mowitnow.mowitnow.domain.Pelouse;
+import com.test.technique.mowitnow.mowitnow.config.MowItNowInput;
+import com.test.technique.mowitnow.mowitnow.config.MowItNowOutput;
 import com.test.technique.mowitnow.mowitnow.domain.Tondeuse;
 import org.springframework.batch.item.ItemProcessor;
 
-public class TondeuseItemProcessor implements ItemProcessor<Tondeuse, Tondeuse> {
+import java.util.ArrayList;
+import java.util.List;
+
+public class TondeuseItemProcessor implements ItemProcessor<MowItNowInput, MowItNowOutput> {
+
 
     @Override
-    public Tondeuse process(Tondeuse input) {
-        Pelouse pelouse = new Pelouse(input.getX(), input.getY());
-        Tondeuse tondeuse = new Tondeuse(pelouse,input.getX(), input.getY(), input.getOrientation(), input.getInstructions());
-        for (char instruction : input.getInstructions().toCharArray()) {
-            switch (instruction) {
-                case 'A' -> tondeuse.avancer();
-                case 'D' -> tondeuse.tournerDroite();
-                case 'G' -> tondeuse.tournerGauche();
-                default -> throw new IllegalStateException("Unexpected value: " + instruction);
+    public MowItNowOutput process(MowItNowInput input) {
+        List<Tondeuse> tondeuses = new ArrayList<>();
+        for (Tondeuse tondeuse : input.getTondeuses()) {
+            char[] instructions = tondeuse.getInstructions().toCharArray();
+            for (char instruction : instructions) {
+                switch (instruction) {
+                    case 'A' -> tondeuse.avancer();
+                    case 'D' -> tondeuse.tournerDroite();
+                    case 'G' -> tondeuse.tournerGauche();
+                    default -> throw new IllegalStateException("Unexpected value: " + instruction);
+                }
             }
-            if (!pelouse.isInBounds(tondeuse.getX(), tondeuse.getY())) {
-                break;
-            }
+            tondeuses.add(tondeuse);
         }
-
-        Tondeuse output = new Tondeuse();
-        output.setX(tondeuse.getX());
-        output.setY(tondeuse.getY());
-        output.setOrientation(tondeuse.getOrientation());
-
-        return output;
+        return new MowItNowOutput(tondeuses);
     }
 }
