@@ -1,7 +1,7 @@
-package com.test.technique.mowitnow.mowitnow.writer;
+package com.test.technique.mowitnow.writer;
 
-import com.test.technique.mowitnow.mowitnow.domain.Pelouse;
-import com.test.technique.mowitnow.mowitnow.domain.Tondeuse;
+import com.test.technique.mowitnow.domain.Pelouse;
+import com.test.technique.mowitnow.domain.Tondeuse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

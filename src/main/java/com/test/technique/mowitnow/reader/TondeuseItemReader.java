@@ -1,8 +1,8 @@
-package com.test.technique.mowitnow.mowitnow.reader;
+package com.test.technique.mowitnow.reader;
 
-import com.test.technique.mowitnow.mowitnow.config.MowItNowInput;
-import com.test.technique.mowitnow.mowitnow.domain.Pelouse;
-import com.test.technique.mowitnow.mowitnow.domain.Tondeuse;
+import com.test.technique.mowitnow.config.MowItNowInput;
+import com.test.technique.mowitnow.domain.Pelouse;
+import com.test.technique.mowitnow.domain.Tondeuse;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemStream;

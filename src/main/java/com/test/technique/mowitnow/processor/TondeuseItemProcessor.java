@@ -1,8 +1,8 @@
-package com.test.technique.mowitnow.mowitnow.processor;
+package com.test.technique.mowitnow.processor;
 
-import com.test.technique.mowitnow.mowitnow.config.MowItNowInput;
-import com.test.technique.mowitnow.mowitnow.config.MowItNowOutput;
-import com.test.technique.mowitnow.mowitnow.domain.Tondeuse;
+import com.test.technique.mowitnow.config.MowItNowInput;
+import com.test.technique.mowitnow.config.MowItNowOutput;
+import com.test.technique.mowitnow.domain.Tondeuse;
 import org.springframework.batch.item.ItemProcessor;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
-package com.test.technique.mowitnow.mowitnow.config;
+package com.test.technique.mowitnow.config;
 
-import com.test.technique.mowitnow.mowitnow.domain.Tondeuse;
+import com.test.technique.mowitnow.domain.Tondeuse;
 
 import java.util.List;
 

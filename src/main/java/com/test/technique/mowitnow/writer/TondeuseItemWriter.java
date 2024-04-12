@@ -1,11 +1,9 @@
-package com.test.technique.mowitnow.mowitnow.writer;
+package com.test.technique.mowitnow.writer;
 
-import com.test.technique.mowitnow.mowitnow.config.MowItNowOutput;
-import com.test.technique.mowitnow.mowitnow.domain.Tondeuse;
+import com.test.technique.mowitnow.config.MowItNowOutput;
+import com.test.technique.mowitnow.domain.Tondeuse;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
-
-import java.io.PrintWriter;
 
 public class TondeuseItemWriter implements ItemWriter<MowItNowOutput> {
 

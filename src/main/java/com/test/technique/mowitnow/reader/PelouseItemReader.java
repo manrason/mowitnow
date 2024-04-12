@@ -1,6 +1,6 @@
-package com.test.technique.mowitnow.mowitnow.reader;
+package com.test.technique.mowitnow.reader;
 
-import com.test.technique.mowitnow.mowitnow.domain.Pelouse;
+import com.test.technique.mowitnow.domain.Pelouse;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;

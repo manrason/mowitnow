@@ -1,4 +1,4 @@
-package com.test.technique.mowitnow.mowitnow.domain;
+package com.test.technique.mowitnow.domain;
 
 public class Tondeuse {
 
