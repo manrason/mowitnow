@@ -1,83 +1,47 @@
 package com.test.technique.mowitnow.reader;
 
 import com.test.technique.mowitnow.config.MowItNowInput;
-import com.test.technique.mowitnow.domain.Pelouse;
 import com.test.technique.mowitnow.domain.Tondeuse;
-import org.springframework.batch.item.ExecutionContext;
-import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.ItemStream;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
+import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.LineMapper;
+import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
+import org.springframework.batch.item.file.mapping.DefaultLineMapper;
+import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.core.io.FileSystemResource;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class TondeuseItemReader implements ItemReader<MowItNowInput>, ItemStream {
+public class TondeuseItemReader extends FlatFileItemReader<MowItNowInput> {
 
-    private BufferedReader reader;
+    public TondeuseItemReader() {
+        this.setResource(new FileSystemResource("src/resources/mowitnow.txt"));
+        this.setLineMapper(lineMapper());
+    }
 
-
-    @Value("${file.path}")
-    private Resource inputFile;
-
+    private LineMapper<MowItNowInput> lineMapper() {
+        DefaultLineMapper<MowItNowInput> lineMapper = new DefaultLineMapper<>();
+        DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer();
+        tokenizer.setNames("largeur", "hauteur", "tondeuses");
+        tokenizer.setDelimiter(" ");
+        BeanWrapperFieldSetMapper<MowItNowInput> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
+        fieldSetMapper.setTargetType(MowItNowInput.class);
+        lineMapper.setLineTokenizer(tokenizer);
+        lineMapper.setFieldSetMapper(fieldSetMapper);
+        return lineMapper;
+    }
 
     @Override
-    public MowItNowInput read() throws Exception {
-        if (reader == null) {
-            reader = new BufferedReader(new FileReader(inputFile.getFile()));
+    protected MowItNowInput doRead() throws Exception {
+        MowItNowInput input = super.read();
+        if (input != null) {
+            String tondeusesString = input.getTondeuses().toString();
+            List<Tondeuse> tondeusesList = Arrays.stream(tondeusesString.substring(1, tondeusesString.length() - 1).split(", "))
+                    .map(Tondeuse::new)
+                    .collect(Collectors.toList());
+            input.setTondeuses(tondeusesList);
         }
-
-        String line;
-        List<Tondeuse> tondeuses = new ArrayList<>();
-
-        // Read the first line containing the width and height of the pelouse
-        line = reader.readLine();
-        String[] dimensions = line.split(" ");
-        int largeur = Integer.parseInt(dimensions[0]);
-        int hauteur = Integer.parseInt(dimensions[1]);
-
-        // Read the second line containing the position of firt tondeuse
-        //TODO correction
-        int numTondeuses = Integer.parseInt(reader.readLine());
-
-        // Read the data for each tondeuse
-        for (int i = 0; i < numTondeuses; i++) {
-            line = reader.readLine();
-            String[] tondeuseData = line.split(" ");
-            int x = Integer.parseInt(tondeuseData[0]);
-            int y = Integer.parseInt(tondeuseData[1]);
-            char orientation = tondeuseData[2].charAt(0);
-            String instructions = tondeuseData[3];
-
-            tondeuses.add(new Tondeuse(new Pelouse(largeur,hauteur), x, y, orientation, instructions));
-        }
-
-        return new MowItNowInput(largeur, hauteur, tondeuses);
-    }
-
-    @Override
-    public void open(ExecutionContext executionContext) {
-        // No-op, as we're not using Spring's built-in file handling
-    }
-
-    @Override
-    public void update(ExecutionContext executionContext) {
-        // No-op, as we're not using Spring's built-in file handling
-    }
-
-    @Override
-    public void close() {
-        try {
-            reader.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void setInputFile(Resource inputFile) {
-        this.inputFile = inputFile;
+        return input;
     }
 }

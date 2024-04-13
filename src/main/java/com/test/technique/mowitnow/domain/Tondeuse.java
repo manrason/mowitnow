@@ -36,6 +36,11 @@ public class Tondeuse {
         this.instructions = instructions;
     }
 
+    public Tondeuse(String instructions) {
+        this.instructions=instructions;
+    }
+
+
     public void avancer() {
         int newX = this.x;
         int newY = this.y;
