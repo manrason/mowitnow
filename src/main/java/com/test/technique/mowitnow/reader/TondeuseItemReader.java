@@ -1,22 +1,22 @@
 package com.test.technique.mowitnow.reader;
 
 import com.test.technique.mowitnow.config.MowItNowInput;
-import com.test.technique.mowitnow.domain.Tondeuse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.ClassPathResource;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class TondeuseItemReader extends FlatFileItemReader<MowItNowInput> {
 
+    private final Logger logger = LoggerFactory.getLogger(TondeuseItemReader.class);
+
     public TondeuseItemReader() {
-        this.setResource(new FileSystemResource("src/resources/mowitnow.txt"));
+        this.setResource(new ClassPathResource("src/resources/mowitnow.txt"));
         this.setLineMapper(lineMapper());
     }
 
@@ -33,14 +33,12 @@ public class TondeuseItemReader extends FlatFileItemReader<MowItNowInput> {
     }
 
     @Override
-    protected MowItNowInput doRead() throws Exception {
-        MowItNowInput input = super.read();
+    public MowItNowInput read() throws Exception {
+        FlatFileItemReader<MowItNowInput> reader = new FlatFileItemReader<>();
+        logger.debug("Reading ItemReader");
+        MowItNowInput input = reader.read();
         if (input != null) {
-            String tondeusesString = input.getTondeuses().toString();
-            List<Tondeuse> tondeusesList = Arrays.stream(tondeusesString.substring(1, tondeusesString.length() - 1).split(", "))
-                    .map(Tondeuse::new)
-                    .collect(Collectors.toList());
-            input.setTondeuses(tondeusesList);
+            input.setTondeuses(input.getTondeuses());
         }
         return input;
     }
