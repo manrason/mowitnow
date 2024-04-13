@@ -20,7 +20,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
-@EnableBatchProcessing
 @Import(DataSourceAutoConfiguration.class)
 public class MowItNowBatchConfiguration {
 
