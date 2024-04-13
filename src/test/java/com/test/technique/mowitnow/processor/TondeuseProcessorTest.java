@@ -2,6 +2,7 @@ package com.test.technique.mowitnow.processor;
 
 import com.test.technique.mowitnow.config.MowItNowInput;
 import com.test.technique.mowitnow.config.MowItNowOutput;
+import com.test.technique.mowitnow.domain.Pelouse;
 import com.test.technique.mowitnow.domain.Tondeuse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,8 +25,9 @@ class TondeuseProcessorTest {
     public void testProcess() {
         // Given
         List<Tondeuse> tondeuses = new ArrayList<>();
-        tondeuses.add(new Tondeuse(1, 2, 'N', "GAGAGAGAA"));
-        tondeuses.add(new Tondeuse(3, 3, 'E',"AADAADADDA"));
+        Pelouse pelouse = new Pelouse(5,5);
+        tondeuses.add(new Tondeuse(pelouse,1, 2, 'N', "GAGAGAGAA"));
+        tondeuses.add(new Tondeuse(pelouse,3, 3, 'E',"AADAADADDA"));
         MowItNowInput input = new MowItNowInput(5,5, tondeuses);
 
         // When

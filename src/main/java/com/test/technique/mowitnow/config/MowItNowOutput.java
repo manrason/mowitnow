@@ -9,6 +9,7 @@ public class MowItNowOutput {
     private List<Tondeuse> tondeuses;
 
     public MowItNowOutput(List<Tondeuse> tondeuses) {
+        this.tondeuses=tondeuses;
     }
 
     public List<Tondeuse> getTondeuses() {

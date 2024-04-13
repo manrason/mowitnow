@@ -1,43 +1,58 @@
 package com.test.technique.mowitnow.writer;
 
-import com.test.technique.mowitnow.domain.Pelouse;
+import com.test.technique.mowitnow.config.MowItNowOutput;
 import com.test.technique.mowitnow.domain.Tondeuse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 class TondeuseWriterTest {
 
-    @Mock
-    private org.springframework.batch.item.ExecutionContext testExecutionContext;
+    @Test
+    public void testWrite() {
+        // Given
+        List<Tondeuse> tondeuses = List.of(
+                new Tondeuse(0, 0, 'N'),
+                new Tondeuse(1, 2, 'E')
+        );
+        MowItNowOutput output = new MowItNowOutput(tondeuses);
 
-    @Mock
-    private org.springframework.batch.core.StepContribution testStepContribution;
+        TondeuseItemWriter writer = new TondeuseItemWriter();
 
-    @InjectMocks
-    private TondeuseItemWriter writer;
+        // When
+        writer.writeList(List.of(output));
+
+        // Then
+        String expectedOutput = "0 0 N\n1 2 E\n";
+        assertEquals(expectedOutput, System.out.toString());
+    }
 
     @Test
-    void testWrite() {
-        List<Tondeuse> outputs = new ArrayList<>();
-        outputs.add(new Tondeuse(new Pelouse(1,1),1, 2, 'N',"G"));
-        outputs.add(new Tondeuse(new Pelouse(1,1),3, 4, 'E',"G"));
+    public void testWriteWithMultipleOutputs() {
+        // Given
+        List<Tondeuse> tondeuse1 = List.of(
+                new Tondeuse(0, 0, 'N'),
+                new Tondeuse(1, 2, 'E')
+        );
+        List<Tondeuse> tondeuse2 = List.of(
+                new Tondeuse(3, 3, 'S'),
+                new Tondeuse(4, 4, 'W')
+        );
+        MowItNowOutput output1 = new MowItNowOutput(tondeuse1);
+        MowItNowOutput output2 = new MowItNowOutput(tondeuse2);
 
-        writer.write(outputs);
+        TondeuseItemWriter writer = new TondeuseItemWriter();
 
-        verify(testExecutionContext).put("tondeuseOutput.0.x", 1);
-        verify(testExecutionContext).put("tondeuseOutput.0.y", 2);
-        verify(testExecutionContext).put("tondeuseOutput.0.orientation", 'N');
-        verify(testExecutionContext).put("tondeuseOutput.1.x", 3);
-        verify(testExecutionContext).put("tondeuseOutput.1.y", 4);
-        verify(testExecutionContext).put("tondeuseOutput.1.orientation", 'E');
+        // When
+        writer.writeList(List.of(output1, output2));
+
+        // Then
+        String expectedOutput = "0 0 N\n1 2 E\n3 3 S\n4 4 W\n";
+        assertEquals(expectedOutput, System.out.toString());
     }
 }

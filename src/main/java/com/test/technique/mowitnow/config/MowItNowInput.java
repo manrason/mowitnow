@@ -11,6 +11,9 @@ public class MowItNowInput {
     private List<Tondeuse> tondeuses;
 
     public MowItNowInput(int largeur, int hauteur, List<Tondeuse> tondeuses) {
+        this.largeur=largeur;
+        this.hauteur=hauteur;
+        this.tondeuses=tondeuses;
     }
 
     public void setLargeur(int largeur) {

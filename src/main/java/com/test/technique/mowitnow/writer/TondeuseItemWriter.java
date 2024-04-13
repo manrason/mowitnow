@@ -19,9 +19,11 @@ public class TondeuseItemWriter implements ItemWriter<MowItNowOutput> {
         }
     }
 
-    public void write(List<Tondeuse> outputs) {
-        for (Tondeuse tondeuse : outputs) {
-            System.out.println(tondeuse.getX() + " " + tondeuse.getY() + " " + tondeuse.getOrientation());
+    public void writeList(List<MowItNowOutput> outputs) {
+        for (MowItNowOutput output : outputs) {
+            for (Tondeuse tondeuse : output.getTondeuses()) {
+                System.out.println(tondeuse.getX() + " " + tondeuse.getY() + " " + tondeuse.getOrientation());
+            }
         }
     }
 }
