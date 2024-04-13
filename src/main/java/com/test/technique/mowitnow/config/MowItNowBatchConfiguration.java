@@ -6,7 +6,6 @@ import com.test.technique.mowitnow.writer.TondeuseItemWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
-import org.springframework.batch.core.configuration.support.DefaultBatchConfiguration;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
@@ -14,15 +13,16 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
-import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 @EnableBatchProcessing
-public class MowItNowBatchConfiguration extends DefaultBatchConfiguration{
-
+@Import(DataSourceAutoConfiguration.class)
+public class MowItNowBatchConfiguration {
 
     @Bean
     public Job job(JobRepository jobRepository, Step mowItNowStep) {
@@ -55,6 +55,5 @@ public class MowItNowBatchConfiguration extends DefaultBatchConfiguration{
     public ItemProcessor<MowItNowInput, MowItNowOutput> mowItNowProcessor() {
         return new TondeuseItemProcessor();
     }
-
 
 }
