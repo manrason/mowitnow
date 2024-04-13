@@ -16,6 +16,14 @@ public class MowItNowInput {
         this.tondeuses=tondeuses;
     }
 
+    public int getLargeur() {
+        return largeur;
+    }
+
+    public int getHauteur() {
+        return hauteur;
+    }
+
     public void setLargeur(int largeur) {
         this.largeur = largeur;
     }

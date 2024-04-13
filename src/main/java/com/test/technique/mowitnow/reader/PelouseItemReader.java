@@ -38,4 +38,8 @@ public class PelouseItemReader extends FlatFileItemReader<String[]>{
         tokenizer.setNames("largeur", "hauteur");
         return tokenizer;
     }
+
+    public void setInputFile(Resource inputFile) {
+        this.inputFile = inputFile;
+    }
 }

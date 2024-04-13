@@ -39,7 +39,8 @@ public class TondeuseItemReader implements ItemReader<MowItNowInput>, ItemStream
         int largeur = Integer.parseInt(dimensions[0]);
         int hauteur = Integer.parseInt(dimensions[1]);
 
-        // Read the second line containing the number of tondeuses
+        // Read the second line containing the position of firt tondeuse
+        //TODO correction
         int numTondeuses = Integer.parseInt(reader.readLine());
 
         // Read the data for each tondeuse
@@ -74,5 +75,9 @@ public class TondeuseItemReader implements ItemReader<MowItNowInput>, ItemStream
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void setInputFile(Resource inputFile) {
+        this.inputFile = inputFile;
     }
 }
