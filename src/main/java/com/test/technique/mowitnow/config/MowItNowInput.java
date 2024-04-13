@@ -24,14 +24,6 @@ public class MowItNowInput {
         return hauteur;
     }
 
-    public void setLargeur(int largeur) {
-        this.largeur = largeur;
-    }
-
-    public void setHauteur(int hauteur) {
-        this.hauteur = hauteur;
-    }
-
     public List<Tondeuse> getTondeuses() {
         return this.tondeuses;
     }

@@ -1,5 +1,7 @@
 package com.test.technique.mowitnow.domain;
 
+import java.util.Objects;
+
 public class Tondeuse {
 
     private Pelouse pelouse;
@@ -102,7 +104,16 @@ public class Tondeuse {
         return instructions;
     }
 
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tondeuse tondeuse = (Tondeuse) o;
+        return x == tondeuse.x && y == tondeuse.y && orientation == tondeuse.orientation && Objects.equals(pelouse, tondeuse.pelouse) && Objects.equals(instructions, tondeuse.instructions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pelouse, x, y, orientation, instructions);
     }
 }

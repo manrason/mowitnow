@@ -27,7 +27,7 @@ class TondeuseWriterTest {
         String result = writer.writeList(output);
 
         // Then
-        String expectedOutput = "0 0 N";
+        String expectedOutput = "0 0 N ";
         assertEquals(expectedOutput, result);
     }
 

@@ -16,7 +16,4 @@ public class MowItNowOutput {
         return tondeuses;
     }
 
-    public void setTondeuses(List<Tondeuse> tondeuses) {
-        this.tondeuses = tondeuses;
-    }
 }
