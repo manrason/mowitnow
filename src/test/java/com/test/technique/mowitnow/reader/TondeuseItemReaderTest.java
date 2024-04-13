@@ -13,13 +13,13 @@ class TondeuseItemReaderTest {
     private TondeuseItemReader reader;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws Exception {
         reader = new TondeuseItemReader();
     }
 
     @Test
     void testRead() throws Exception {
-        reader.setResource(new ClassPathResource("src/resources/mowitnow.txt"));
+        reader.setResource(new ClassPathResource("src/main/resources/mowitnow.txt"));
         MowItNowInput input = reader.read();
         assertEquals(5, input.getLargeur());
         assertEquals(5, input.getHauteur());

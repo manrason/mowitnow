@@ -5,7 +5,6 @@ import com.test.technique.mowitnow.reader.TondeuseItemReader;
 import com.test.technique.mowitnow.writer.TondeuseItemWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
@@ -32,7 +31,7 @@ public class MowItNowBatchConfiguration {
     }
 
     @Bean
-    public Step mowItNowStep(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
+    public Step mowItNowStep(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) throws Exception {
         return new StepBuilder("mowItNowStep", jobRepository)
                 .<MowItNowInput, MowItNowOutput>chunk(1, platformTransactionManager)
                 .reader(tondeuseReader())
@@ -42,7 +41,7 @@ public class MowItNowBatchConfiguration {
     }
 
     @Bean
-    public FlatFileItemReader<MowItNowInput> tondeuseReader() {
+    public FlatFileItemReader<MowItNowInput> tondeuseReader() throws Exception {
         return new TondeuseItemReader();
     }
     @Bean

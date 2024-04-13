@@ -6,14 +6,17 @@ import java.util.List;
 
 public class MowItNowInput {
 
-    private final int largeur;
-    private final int hauteur;
+    private int largeur;
+    private int hauteur;
     private List<Tondeuse> tondeuses;
 
     public MowItNowInput(int largeur, int hauteur, List<Tondeuse> tondeuses) {
         this.largeur=largeur;
         this.hauteur=hauteur;
         this.tondeuses=tondeuses;
+    }
+
+    public MowItNowInput() {
     }
 
     public int getLargeur() {
