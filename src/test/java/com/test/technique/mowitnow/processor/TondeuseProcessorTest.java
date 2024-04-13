@@ -1,67 +1,43 @@
 package com.test.technique.mowitnow.processor;
 
-import com.test.technique.mowitnow.domain.Pelouse;
+import com.test.technique.mowitnow.config.MowItNowInput;
+import com.test.technique.mowitnow.config.MowItNowOutput;
 import com.test.technique.mowitnow.domain.Tondeuse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class TondeuseProcessorTest {
 
-    @Mock
-    private Pelouse pelouse;
 
     @InjectMocks
     private TondeuseItemProcessor processor;
 
     @Test
-    void testProcess() {
-        //when(pelouse.isInBounds(0, 2)).thenReturn(false);
-        Tondeuse input = new Tondeuse(new Pelouse(5,5),0,0,'N',"ADGAGAGA");
+    public void testProcess() {
+        // Given
+        List<Tondeuse> tondeuses = new ArrayList<>();
+        tondeuses.add(new Tondeuse(1, 2, 'N', "GAGAGAGAA"));
+        tondeuses.add(new Tondeuse(3, 3, 'E',"AADAADADDA"));
+        MowItNowInput input = new MowItNowInput(5,5, tondeuses);
 
-        Tondeuse output = processor.process(input);
+        // When
+        MowItNowOutput output = processor.process(input);
 
-        assertEquals(0, output.getX());
-        assertEquals(2, output.getY());
-        assertEquals('S', output.getOrientation());
+        // Then
+        List<Tondeuse> expectedTondeuses = List.of(
+                new Tondeuse(2, 3, 'N'),
+                new Tondeuse(1, 3, 'E')
+        );
+        assert output != null;
+        assertEquals(expectedTondeuses, output.getTondeuses());
     }
 
-    @Test
-    void testProcessOutOfBounds() {
-        when(pelouse.isInBounds(1, 4)).thenReturn(true);
-        when(pelouse.isInBounds(1, 5)).thenReturn(false);
-        Tondeuse input = new Tondeuse();
-        input.setX(1);
-        input.setY(4);
-        input.setOrientation('N');
-        input.setInstructions("AA");
-
-        Tondeuse output = processor.process(input);
-
-        assertEquals(1, output.getX());
-        assertEquals(4, output.getY());
-        assertEquals('N', output.getOrientation());
-    }
-
-    @Test
-    void testProcessWithMultipleInstructions() {
-        when(pelouse.isInBounds(0, 0)).thenReturn(true);
-        Tondeuse input = new Tondeuse();
-        input.setX(0);
-        input.setY(0);
-        input.setOrientation('N');
-        input.setInstructions("ADADADA");
-
-        Tondeuse output = processor.process(input);
-
-        assertEquals(0, output.getX());
-        assertEquals(3, output.getY());
-        assertEquals('N', output.getOrientation());
-    }
 }

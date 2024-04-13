@@ -6,16 +6,16 @@ import java.util.List;
 
 public class MowItNowOutput {
 
-    private Tondeuse[] tondeuses;
+    private List<Tondeuse> tondeuses;
 
     public MowItNowOutput(List<Tondeuse> tondeuses) {
     }
 
-    public Tondeuse[] getTondeuses() {
+    public List<Tondeuse> getTondeuses() {
         return tondeuses;
     }
 
-    public void setTondeuses(Tondeuse[] tondeuses) {
+    public void setTondeuses(List<Tondeuse> tondeuses) {
         this.tondeuses = tondeuses;
     }
 }
