@@ -14,7 +14,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class TondeuseWriterTest {
 
     @Test
-    public void testWrite() {
+    public void testWriteSingleTondeuse() {
+        // Given
+        List<Tondeuse> tondeuses = List.of(
+                new Tondeuse(0, 0, 'N')
+        );
+        MowItNowOutput output = new MowItNowOutput(tondeuses);
+
+        TondeuseItemWriter writer = new TondeuseItemWriter();
+
+        // When
+        String result = writer.writeList(output);
+
+        // Then
+        String expectedOutput = "0 0 N";
+        assertEquals(expectedOutput, result);
+    }
+
+    @Test
+    public void testWriteDoubleTondeuse() {
         // Given
         List<Tondeuse> tondeuses = List.of(
                 new Tondeuse(0, 0, 'N'),
@@ -25,34 +43,11 @@ class TondeuseWriterTest {
         TondeuseItemWriter writer = new TondeuseItemWriter();
 
         // When
-        writer.writeList(List.of(output));
+        String result = writer.writeList(output);
 
         // Then
-        String expectedOutput = "0 0 N\n1 2 E\n";
-        assertEquals(expectedOutput, System.out.toString());
+        String expectedOutput = "0 0 N 1 2 E ";
+        assertEquals(expectedOutput, result);
     }
 
-    @Test
-    public void testWriteWithMultipleOutputs() {
-        // Given
-        List<Tondeuse> tondeuse1 = List.of(
-                new Tondeuse(0, 0, 'N'),
-                new Tondeuse(1, 2, 'E')
-        );
-        List<Tondeuse> tondeuse2 = List.of(
-                new Tondeuse(3, 3, 'S'),
-                new Tondeuse(4, 4, 'W')
-        );
-        MowItNowOutput output1 = new MowItNowOutput(tondeuse1);
-        MowItNowOutput output2 = new MowItNowOutput(tondeuse2);
-
-        TondeuseItemWriter writer = new TondeuseItemWriter();
-
-        // When
-        writer.writeList(List.of(output1, output2));
-
-        // Then
-        String expectedOutput = "0 0 N\n1 2 E\n3 3 S\n4 4 W\n";
-        assertEquals(expectedOutput, System.out.toString());
-    }
 }

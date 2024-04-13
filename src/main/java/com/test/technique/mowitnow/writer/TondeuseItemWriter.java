@@ -5,8 +5,6 @@ import com.test.technique.mowitnow.domain.Tondeuse;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 
-import java.util.List;
-
 public class TondeuseItemWriter implements ItemWriter<MowItNowOutput> {
 
 
@@ -19,11 +17,11 @@ public class TondeuseItemWriter implements ItemWriter<MowItNowOutput> {
         }
     }
 
-    public void writeList(List<MowItNowOutput> outputs) {
-        for (MowItNowOutput output : outputs) {
-            for (Tondeuse tondeuse : output.getTondeuses()) {
-                System.out.println(tondeuse.getX() + " " + tondeuse.getY() + " " + tondeuse.getOrientation());
+    public String writeList(MowItNowOutput outputs) {
+        StringBuilder result = new StringBuilder();
+            for (Tondeuse tondeuse : outputs.getTondeuses()) {
+                result.append(tondeuse.getX()).append(" ").append(tondeuse.getY()).append(" ").append(tondeuse.getOrientation()).append(" ");
             }
-        }
+        return result.toString();
     }
 }
