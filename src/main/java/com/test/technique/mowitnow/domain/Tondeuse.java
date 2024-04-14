@@ -81,6 +81,10 @@ public class Tondeuse {
         }
     }
 
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
+
     public int getX() {
         return x;
     }
